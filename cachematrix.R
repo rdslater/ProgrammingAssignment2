@@ -9,13 +9,14 @@ makeMatrix <- function(x = matrix()) {
         set <- function(y) {
                 x <<- y
                 m <<- NULL
-        }
-        get <- function() x
-        setinv <- function(solve) m <<- solve
-        getinv <- function() m
-        list(set = set, get = get,
+							}
+        get <- function() x  ##assigns 'get' to the value of 'x' which is the variable for makeMatrix
+        setinv <- function(dummy) m <<- dummy  ##assigns 'setinv' a value of the function(dummy).  Assigns a "Global" Variable m equal to solve.
+        getinv <- function() m ## simply assigns getinv the value of m
+        list(set = set, 
+			 get = get,
              setinv = setinv,
-             getinv = getinv)
+             getinv = getinv)  ##creates a list of 4 items.  'set', 'get', 'setinv'. 'getinv'
 }
 
 
@@ -27,9 +28,10 @@ cacheSolve <- function(x, ...) {
         if(!is.null(m)) {
                 message("getting cached data")
                 return(m)
-        }
-        data <- x$get()
+        }   ##tests if m is null and if it is NOT null, returns m (which is the cached value)
+        else{data <- x$get()  ##m is null, so run the solve function
         m <- solve(data, ...)
         x$setinv(m)
-        m
+        m} 
 }
+
